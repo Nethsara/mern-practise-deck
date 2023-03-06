@@ -21,7 +21,13 @@ app.post("/decks", async (req, res) => {
   res.json(createdDeck);
 });
 
-const db = mongoose.connect(process.env.MONGO_URI ?? "").then(() => {
+app.get("/decks", async (req, res) => {
+  const decks = await Deck.find();
+  console.log(decks);
+  res.json(decks);
+});
+
+mongoose.connect(process.env.MONGO_URI ?? "").then(() => {
   console.log("Connected!");
   app.listen(PORT, () => {
     console.log(`Started and running on ${PORT}`);
