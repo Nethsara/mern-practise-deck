@@ -9,8 +9,12 @@ import Deck from "./models/Deck";
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hi");
+app.post("/decks", async (req, res) => {
+  const newDeck = new Deck({
+    title: req.body.title,
+  });
+  const createdDeck = await newDeck.save();
+  res.json(createdDeck);
 });
 
 const db = mongoose.connect(process.env.MONGO_URI ?? "").then(() => {
