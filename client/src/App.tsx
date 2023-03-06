@@ -6,12 +6,17 @@ function App() {
   const [title, setTitle] = useState("");
 
   function handleCreateDeck(e: React.FormEvent) {
+    console.log(title);
+
     e.preventDefault();
     fetch("http://localhost:5000/decks", {
       method: "POST",
       body: JSON.stringify({
         title,
       }),
+      headers: {
+        "Content-type": "application/json",
+      },
     });
   }
 

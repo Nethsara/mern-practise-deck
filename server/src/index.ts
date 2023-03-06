@@ -1,13 +1,17 @@
-import express from "express";
-import mongoose from "mongoose";
 import { config } from "dotenv";
 config();
+
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
 
 const PORT = 5000;
 
 import Deck from "./models/Deck";
 
 const app = express();
+app.use(cors());
+app.use(express.json());
 
 app.post("/decks", async (req, res) => {
   const newDeck = new Deck({
