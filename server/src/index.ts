@@ -1,20 +1,21 @@
 import express from "express";
 import mongoose from "mongoose";
+import { config } from "dotenv";
+config();
+
+const PORT = 5000;
 
 import Deck from "./models/Deck";
 
 const app = express();
 
-mongoose
-  .connect(
-    "mongodb+srv://nethsara:iUXSMg9upgFdp20Y@cluster0.5rlw5fx.mongodb.net/?retryWrites=true&w=majority"
-  )
-  .then(() => console.log("Connected!"));
-
 app.get("/", (req, res) => {
-  res.send("HI");
+  res.send("Hi");
 });
 
-app.listen(5000, () => {
-  console.log("Started and running on 5000");
+const db = mongoose.connect(process.env.MONGO_URI ?? "").then(() => {
+  console.log("Connected!");
+  app.listen(PORT, () => {
+    console.log(`Started and running on ${PORT}`);
+  });
 });
